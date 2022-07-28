@@ -1,13 +1,5 @@
 <menu>
     <item onclick="edit"><%= gettext "Open" %></item>
     <hr/>
-    <%= for item <- @yolos do %>
-    <item 
-        type="checkbox" 
-        checked={item.status == "done"}
-        onclick={"toggle:#{item.id}"} 
-        ><%= item.text %></item>
-    <% end %>
-    <hr/>
     <item onclick="quit"><%= gettext "Quit" %></item>
 </menu>

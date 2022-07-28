@@ -11,12 +11,6 @@ defmodule YoloApp.MenuBar do
     ~E"""
     <menubar>
     <menu label="<%= gettext "File" %>">
-        <%= for item <- @yolos do %>
-        <item
-            type="checkbox" onclick="toggle:<%= item.id %>"
-            <%= if item.status == "done" do %>checked="checked"<% end %>
-            ><%= item.text %></item>
-        <% end %>
         <hr/>
         <item onclick="quit"><%= gettext "Quit" %></item>
     </menu>
@@ -27,10 +21,6 @@ defmodule YoloApp.MenuBar do
     </menu>
     </menubar>
     """
-  end
-
-  def handle_event(<<"toggle:", id::binary>>, menu) do
-    {:noreply, menu}
   end
 
   def handle_event("observer", menu) do
