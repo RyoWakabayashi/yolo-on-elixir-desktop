@@ -51,4 +51,11 @@ defmodule YoloWeb.YoloLive do
       |> assign(:ans, [])
     }
   end
+
+  def notification_event(action) do
+    Desktop.Window.show_notification(TodoWindow, "You did '#{inspect(action)}' me!",
+      id: :click,
+      type: :warning
+    )
+  end
 end

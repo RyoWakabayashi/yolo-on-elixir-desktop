@@ -19,7 +19,9 @@ defmodule YoloApp do
     Desktop.identify_default_locale(YoloWeb.Gettext)
     File.mkdir_p!(config_dir())
 
-    {:ok, sup} = Supervisor.start_link([YoloWeb.Sup], name: __MODULE__, strategy: :one_for_one)
+    {:ok, sup} = Supervisor.start_link([YoloApp.Store], name: __MODULE__, strategy: :one_for_one)
+
+    {:ok, _} = Supervisor.start_child(sup, YoloWeb.Sup)
 
     {:ok, _} =
       Supervisor.start_child(sup, {
