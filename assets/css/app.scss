@@ -1,6 +1,8 @@
 /* This file is for your main application css. */
 @use "../node_modules/nprogress/nprogress.css";
-@import "./todo.scss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* LiveView specific classes for your customizations */
 .invalid-feedback {

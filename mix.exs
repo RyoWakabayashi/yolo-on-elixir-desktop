@@ -1,10 +1,10 @@
-defmodule Todo.MixProject do
+defmodule Yolo.MixProject do
   use Mix.Project
 
   @version "1.0.0"
   def project do
     [
-      app: :todo_app,
+      app: :yolo_app,
       version: @version,
       elixir: "~> 1.10",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -22,7 +22,7 @@ defmodule Todo.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      mod: {TodoApp, []},
+      mod: {YoloApp, []},
       extra_applications: [
         :logger,
         :ssl,
@@ -47,7 +47,7 @@ defmodule Todo.MixProject do
       "assets.deploy": [
         "phx.digest.clean --all",
         "esbuild default --minify",
-        "sass default --no-source-map --style=compressed",
+        "tailwind default --minify",
         "phx.digest"
       ]
     ]
@@ -56,13 +56,11 @@ defmodule Todo.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ecto_sqlite3, "~> 0.7"},
-      # {:desktop, path: "../desktop"},
       {:desktop, github: "elixir-desktop/desktop", tag: "v1.4.0"},
 
       # Phoenix
       {:phoenix, "~> 1.6"},
-      {:phoenix_live_view, "~> 0.16"},
+      {:phoenix_live_view, "~> 0.17.4"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.3", only: [:dev]},
       {:gettext, "~> 0.18"},
@@ -71,10 +69,17 @@ defmodule Todo.MixProject do
 
       # Assets
       {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
-      {:dart_sass, "~> 0.2", runtime: Mix.env() == :dev},
+      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev}, # 追加
+      {:petal_components, "~> 0.17"}, # 追加
 
       # Credo
-      {:credo, "~> 1.5", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+
+      # YOLO
+      {:evision, "~> 0.1.0-dev", github: "cocoa-xu/evision", branch: "main"},
+      {:exla, "~> 0.3.0-dev", github: "elixir-nx/nx", sparse: "exla"},
+      {:nx, "~> 0.3.0-dev", [env: :prod, git: "https://github.com/elixir-nx/nx.git", sparse: "nx", override: true]},
+      {:stb_image, "~> 0.4.0"}
     ]
   end
 end

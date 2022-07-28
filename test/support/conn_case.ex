@@ -1,4 +1,4 @@
-defmodule TodoWeb.ConnCase do
+defmodule YoloWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -6,13 +6,6 @@ defmodule TodoWeb.ConnCase do
   Such tests rely on `Phoenix.ConnTest` and also
   import other functionality to make it easier
   to build common data structures and query the data layer.
-
-  Finally, if the test case interacts with the database,
-  we enable the SQL sandbox, so changes done to the database
-  are reverted at the end of every test. If you are using
-  PostgreSQL, you can even run database tests asynchronously
-  by setting `use TodoWeb.ConnCase, async: true`, although
-  this option is not recommended for other databases.
   """
 
   use ExUnit.CaseTemplate
@@ -22,12 +15,12 @@ defmodule TodoWeb.ConnCase do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
-      import TodoWeb.ConnCase
+      import YoloWeb.ConnCase
 
-      alias TodoWeb.Router.Helpers, as: Routes
+      alias YoloWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
-      @endpoint TodoWeb.Endpoint
+      @endpoint YoloWeb.Endpoint
     end
   end
 

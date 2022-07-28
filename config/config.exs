@@ -8,10 +8,14 @@ config :esbuild,
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 
-config :dart_sass,
-  version: "1.39.0",
+config :tailwind,
+  version: "3.1.6",
   default: [
-    args: ~w(css/app.scss ../priv/static/assets/app.css),
+    args: ~w(
+      --config=tailwind.config.js
+      --input=css/app.css
+      --output=../priv/static/assets/app.css
+    ),
     cd: Path.expand("../assets", __DIR__)
   ]
 
@@ -26,21 +30,18 @@ config :logger, :console,
   metadata: [:request_id]
 
 # Configures the endpoint
-config :todo_app, TodoWeb.Endpoint,
+config :yolo_app, YoloWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 0],
-  render_errors: [view: TodoWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: TodoApp.PubSub,
+  render_errors: [view: YoloWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: YoloApp.PubSub,
   live_view: [signing_salt: "sWpG9ljX"],
   secret_key_base: :crypto.strong_rand_bytes(32),
   server: true
 
 config :phoenix, :json_library, Jason
 
-config :todo_app,
-  ecto_repos: [TodoApp.Repo]
-
-# We're defining this at runtime
-# config :todo_app, TodoApp.Repo, database: "~/.config/todo/database.sq3"
+config :nx, :default_backend, EXLA.Backend
+config :nx, :default_defn_options, compiler: EXLA
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
