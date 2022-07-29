@@ -62,8 +62,8 @@ defmodule YoloApp.Worker do
 
     threshold_tensor =
       score_threshold
-      |> List.duplicate(size)
       |> Nx.tensor()
+      |> Nx.broadcast({size})
 
     index_list =
       Nx.transpose(predictions)[4]
