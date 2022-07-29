@@ -40,8 +40,7 @@ config :yolo_app, YoloWeb.Endpoint,
 
 config :phoenix, :json_library, Jason
 
-config :nx, :default_backend, EXLA.Backend
-config :nx, :default_defn_options, compiler: EXLA
+config :nx, :default_backend, Torchx.Backend
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

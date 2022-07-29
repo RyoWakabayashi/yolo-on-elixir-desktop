@@ -77,8 +77,8 @@ defmodule Yolo.MixProject do
 
       # YOLO
       {:evision, "~> 0.1.0-dev", github: "cocoa-xu/evision", branch: "main"},
-      {:exla, "~> 0.3.0-dev", github: "elixir-nx/nx", sparse: "exla"},
-      {:nx, "~> 0.3.0-dev", [env: :prod, git: "https://github.com/elixir-nx/nx.git", sparse: "nx", override: true]},
+      {:torchx, "~> 0.2.1"},
+      {:nx, "~> 0.2.1"},
       {:stb_image, "~> 0.4.0"}
     ]
   end
