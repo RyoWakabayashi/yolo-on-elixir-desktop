@@ -50,3 +50,9 @@ iex -S mix
 ## Screenshots
 
 ![yolo](/nodeploy/yolo.gif)
+
+## References
+
+UI is copied from this repository
+
+<https://qiita.com/the_haigo/items/22ca888ab2b19b558828>
