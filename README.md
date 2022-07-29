@@ -49,4 +49,4 @@ iex -S mix
 
 ## Screenshots
 
-![yolo](/nodeploy/yolo.png?raw=true)
+![yolo](/nodeploy/yolo.gif)
