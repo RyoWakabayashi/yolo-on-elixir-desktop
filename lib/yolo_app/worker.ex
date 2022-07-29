@@ -7,14 +7,23 @@ defmodule YoloApp.Worker do
   def detect(binary) do
     label_list = Store.get(:label_list)
 
-    binary
-    |> preprocess()
-    |> predict()
-    |> to_tensor()
-    |> filter_predictions(0.8)
-    |> format_predictions()
-    |> nms(0.8, 0.7)
-    |> Enum.map(&Map.put(&1, :class, Enum.at(label_list, &1.class)))
+    mat = to_mat(binary)
+
+    predictions =
+      mat
+      |> preprocess()
+      |> predict()
+      |> to_tensor()
+      |> filter_predictions(0.8)
+      |> format_predictions()
+      |> nms(0.8, 0.7)
+      |> Enum.map(&Map.put(&1, :class, Enum.at(label_list, &1.class)))
+
+    drawed =
+      OpenCV.imencode!(".png", draw_predictions(mat, predictions))
+      |> IO.iodata_to_binary()
+
+    {predictions, drawed}
   end
 
   def measure(function) do
@@ -23,13 +32,16 @@ defmodule YoloApp.Worker do
     result
   end
 
-  def preprocess(binary) do
+  def to_mat(binary) do
     binary
     |> StbImage.from_binary()
     |> elem(1)
     |> StbImage.to_nx()
     |> OpenCV.Nx.to_mat!()
-    |> OpenCV.DNN.blobFromImage!(size: [608, 608], swapRB: true, crop: false)
+  end
+
+  def preprocess(mat) do
+    OpenCV.DNN.blobFromImage!(mat, size: [608, 608], swapRB: true, crop: false)
   end
 
   def predict(blob) do
@@ -112,5 +124,35 @@ defmodule YoloApp.Worker do
     box_list
     |> OpenCV.DNN.nmsBoxes!(score_list, score_threshold, nms_threshold)
     |> Enum.map(&Enum.at(formed_predictions, &1))
+  end
+
+  def draw_predictions(mat, predictions) do
+    {height, width, _} = OpenCV.Mat.shape!(mat)
+
+    predictions
+    |> Enum.reduce(mat, fn prediction, drawed_mat ->
+      box = prediction.box
+      left = Enum.at(box, 0) |> Kernel.*(width) |> trunc()
+      top = Enum.at(box, 1) |> Kernel.*(height) |> trunc()
+      right = Enum.at(box, 2) |> Kernel.*(width) |> trunc()
+      bottom = Enum.at(box, 3) |> Kernel.*(height) |> trunc()
+
+      drawed_mat
+      |> OpenCV.rectangle!(
+        [left, top],
+        [right, bottom],
+        [255, 0, 0],
+        thickness: 4
+      ) # 四角形を描画する
+      |> OpenCV.putText!(
+        prediction.class,
+        [left + 6, top + 26],
+        OpenCV.cv_FONT_HERSHEY_SIMPLEX,
+        0.8,
+        [0, 0, 255],
+        thickness: 2
+      ) # ラベル文字を書く
+    end)
+    |> OpenCV.cvtColor!(OpenCV.cv_COLOR_BGR2RGB)
   end
 end

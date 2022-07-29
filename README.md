@@ -37,6 +37,10 @@ asdf exec direnv allow .envrc
 ```
 
 ```bash
+./download_models.sh
+```
+
+```bash
 mix deps.get
 cd assets && npm install && cd ..
 mix assets.deploy
@@ -45,4 +49,4 @@ iex -S mix
 
 ## Screenshots
 
-![yolo](/nodeploy/yolo.png?raw=true)
+![yolo](/nodeploy/yolo.gif)

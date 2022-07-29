@@ -39,7 +39,12 @@ defmodule YoloWeb.YoloLive do
 
   @impl true
   def handle_event("detect",_params,%{assigns: %{upload_file: binary}} = socket) do
-    {:noreply, assign(socket, :ans, YoloApp.Worker.detect(binary))}
+    {predictions, drawed} = YoloApp.Worker.detect(binary)
+    socket =
+      socket
+      |> assign(:upload_file, drawed)
+      |> assign(:ans, predictions)
+    {:noreply, socket}
   end
 
   @impl true
