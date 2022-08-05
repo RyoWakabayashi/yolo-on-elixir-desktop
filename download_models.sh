@@ -3,12 +3,8 @@
 mkdir -p priv/models
 
 wget -c \
-  -N https://pjreddie.com/media/files/yolov3.weights \
-  -O ./priv/models/yolov3.weights
-
-wget -c \
-  -N https://raw.githubusercontent.com/pjreddie/darknet/master/cfg/yolov3.cfg \
-  -O ./priv/models/yolov3.cfg
+  -N https://media.githubusercontent.com/media/onnx/models/main/vision/object_detection_segmentation/yolov2-coco/model/yolov2-coco-9.onnx \
+  -O ./priv/models/yolov2.onnx
 
 wget -c \
   -N https://raw.githubusercontent.com/pjreddie/darknet/master/data/coco.names \

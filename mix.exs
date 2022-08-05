@@ -69,17 +69,19 @@ defmodule Yolo.MixProject do
 
       # Assets
       {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
-      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev}, # 追加
-      {:petal_components, "~> 0.17"}, # 追加
+      # 追加
+      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
+      # 追加
+      {:petal_components, "~> 0.17"},
 
       # Credo
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
 
       # YOLO
-      {:evision, "~> 0.1.0-dev", github: "cocoa-xu/evision", branch: "main"},
+      {:axon_onnx, "~> 0.1"},
       {:torchx, "~> 0.2.1"},
       {:nx, "~> 0.2.1"},
-      {:stb_image, "~> 0.4.0"}
+      {:stb_image, "~> 0.5"}
     ]
   end
 end
