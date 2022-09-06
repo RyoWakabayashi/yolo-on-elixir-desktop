@@ -57,6 +57,7 @@ defmodule Yolo.MixProject do
   defp deps do
     [
       {:desktop, github: "elixir-desktop/desktop", tag: "v1.4.0"},
+      {:wx, "~> 1.0", hex: :bridge, targets: [:android, :ios]},
 
       # Phoenix
       {:phoenix, "~> 1.6"},
