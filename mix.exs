@@ -80,8 +80,8 @@ defmodule Yolo.MixProject do
 
       # YOLO
       {:axon_onnx, "~> 0.1"},
-      {:torchx, "~> 0.2.1"},
-      {:nx, "~> 0.2.1"},
+      {:exla, "~> 0.3.0"},
+      {:nx, "~> 0.3.0"},
       {:stb_image, "~> 0.5"}
     ]
   end
